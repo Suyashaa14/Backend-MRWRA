@@ -14,6 +14,7 @@ import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -49,9 +50,14 @@ export class AuthController {
       throw new BadRequestException('Invalid Credentials');
     }
 
-    const jwt = await this.jwtService.signAsync({ id: user.id });
+    const jwt = await this.jwtService.signAsync({
+      id: user.id,
+      role: user.role,
+      username: user.firstName + ' ' + user.lastName,
+      email: user.email,
+    });
 
-    // response.cookie('jwt ', jwt, { httpOnly: true });
+    response.cookie('jwt ', jwt, { httpOnly: true });
     return {
       token: jwt,
     };
