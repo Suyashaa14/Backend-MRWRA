@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { Auth } from './auth/entities/auth.entity';
+import { MoviesModule } from './movies/movies.module';
+import { Movie } from './movies/entities/movie.entity';
 
 @Module({
   imports: [
@@ -14,10 +16,11 @@ import { Auth } from './auth/entities/auth.entity';
       username: 'root',
       password: 'root',
       database: 'mrwra',
-      entities: [Auth],
+      entities: [Auth,Movie],
       synchronize: true,
     }),
     AuthModule,
+    MoviesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
