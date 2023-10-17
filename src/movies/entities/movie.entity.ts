@@ -49,7 +49,7 @@ export class Movie {
   @Column()
   trailer: string;
 
-  @Column()
+  @Column({ nullable: true })
   movieId: string;
 
   @Column({
