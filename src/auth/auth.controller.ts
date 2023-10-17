@@ -37,16 +37,19 @@ export class AuthController {
 
   @Post('login')
   async login(
-    @Body() createAuthDto: CreateAuthDto,
+    @Body('email') email: string,
+    @Body('password') password: string,
+    @Body('role') role: string,
     @Res({ passthrough: true }) response: Response,
-  ) {
-    const user = await this.authService.findOne(createAuthDto.email);
+  ) { 
+    console.log(email);
+    const user = await this.authService.findOne(email);
 
     if (!user) {
       throw new BadRequestException('Invalid Credentials');
     }
 
-    if (!(await bcrypt.compare(createAuthDto.password, user.password))) {
+    if (!(await bcrypt.compare(password, user.password))) {
       throw new BadRequestException('Invalid Credentials');
     }
 
