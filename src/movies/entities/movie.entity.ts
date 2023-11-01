@@ -14,10 +14,10 @@ export class Movie {
   title: string;
 
   @Column()
-  year: number;
+  title_url: string;
 
   @Column()
-  contentRating: string;
+  year: number;
 
   @Column()
   runtime: string;
@@ -38,19 +38,16 @@ export class Movie {
   director: string;
 
   @Column()
-  metascore: number;
-
-  @Column()
-  writer: string;
-
-  @Column()
   stars: string;
 
   @Column()
   trailer: string;
 
-  @Column({ nullable: true })
-  movieId: string;
+  @Column()
+  votes: number;
+
+  @Column()
+  language: string;
 
   @Column({
     type: 'enum',
