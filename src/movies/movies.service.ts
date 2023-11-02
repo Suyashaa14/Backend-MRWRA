@@ -11,7 +11,7 @@ export class MoviesService {
     @InjectRepository(Movie) private readonly movieRepository: Repository<Movie>,
   ) {}
   create(createMovieDto: CreateMovieDto) {
-    return this.movieRepository.save(createMovieDto);
+    return this.movieRepository.save(createMovieDto); 
   }
 
   findAll() {

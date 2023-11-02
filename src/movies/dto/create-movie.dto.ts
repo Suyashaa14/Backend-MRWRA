@@ -1,15 +1,15 @@
 import { IsString, IsNumber, IsEnum, IsOptional, IsUrl } from 'class-validator';
-import { Status } from '../entities/movie.entity'; // Import the Status enum from your movie.entity file
+import { Status } from '../entities/movie.entity';
 
 export class CreateMovieDto {
   @IsString()
   title: string;
 
+  @IsString()
+  title_url: string;
+
   @IsNumber()
   year: number;
-
-  @IsString()
-  contentRating: string;
 
   @IsString()
   runtime: string;
@@ -29,22 +29,19 @@ export class CreateMovieDto {
   @IsString()
   director: string;
 
-  @IsNumber()
-  metascore: number;
-
-  @IsString()
-  writer: string;
-
   @IsString()
   stars: string;
 
   @IsUrl()
   trailer: string;
 
+  @IsNumber()
+  votes: number;
+
   @IsString()
-  movieId: string;
+  language: string;
 
   @IsEnum(Status)
   @IsOptional()
-  status?: Status; 
+  status?: Status;
 }
