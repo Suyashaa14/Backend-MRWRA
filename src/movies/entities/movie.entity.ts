@@ -17,7 +17,7 @@ export class Movie {
   title_url: string;
 
   @Column()
-  year: number;
+  year: string;
 
   @Column()
   runtime: string;

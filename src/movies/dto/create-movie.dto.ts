@@ -8,8 +8,8 @@ export class CreateMovieDto {
   @IsString()
   title_url: string;
 
-  @IsNumber()
-  year: number;
+  @IsString()
+  year: string;
 
   @IsString()
   runtime: string;
