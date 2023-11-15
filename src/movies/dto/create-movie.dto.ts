@@ -37,9 +37,11 @@ export class CreateMovieDto {
   trailer: string;
 
   @IsString()
+  @IsOptional()
   votes: string;
 
   @IsString()
+  @IsOptional()
   language: string;
 
   @IsEnum(Status)

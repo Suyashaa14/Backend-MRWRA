@@ -13,7 +13,7 @@ export class Movie {
   @Column()
   title: string;
 
-  @Column()
+  @Column({ nullable: true })
   title_url: string;
 
   @Column()
@@ -43,10 +43,10 @@ export class Movie {
   @Column()
   trailer: string;
 
-  @Column()
+  @Column({ nullable: true })
   votes: string;
 
-  @Column()
+  @Column({ nullable: true })
   language: string;
 
   @Column({
