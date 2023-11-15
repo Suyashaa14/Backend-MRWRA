@@ -6,6 +6,7 @@ export class CreateMovieDto {
   title: string;
 
   @IsString()
+  @IsOptional()
   title_url: string;
 
   @IsString()
@@ -17,8 +18,8 @@ export class CreateMovieDto {
   @IsString()
   description: string;
 
-  @IsNumber()
-  rating: number;
+  @IsString()
+  rating: string;
 
   @IsUrl()
   poster: string;
@@ -35,8 +36,8 @@ export class CreateMovieDto {
   @IsUrl()
   trailer: string;
 
-  @IsNumber()
-  votes: number;
+  @IsString()
+  votes: string;
 
   @IsString()
   language: string;

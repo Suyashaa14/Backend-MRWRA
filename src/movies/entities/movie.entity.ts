@@ -26,7 +26,7 @@ export class Movie {
   description: string;
 
   @Column()
-  rating: number;
+  rating: string;
 
   @Column()
   poster: string;
@@ -44,7 +44,7 @@ export class Movie {
   trailer: string;
 
   @Column()
-  votes: number;
+  votes: string;
 
   @Column()
   language: string;
