@@ -8,10 +8,11 @@ import { Movie, Status } from './entities/movie.entity';
 @Injectable()
 export class MoviesService {
   constructor(
-    @InjectRepository(Movie) private readonly movieRepository: Repository<Movie>,
+    @InjectRepository(Movie)
+    private readonly movieRepository: Repository<Movie>,
   ) {}
   create(createMovieDto: CreateMovieDto) {
-    return this.movieRepository.save(createMovieDto); 
+    return this.movieRepository.save(createMovieDto);
   }
 
   findAll() {
@@ -19,11 +20,30 @@ export class MoviesService {
   }
 
   findOne(id: any) {
-    return this.movieRepository.findOne({where: {id}});
+    return this.movieRepository.findOne({ where: { id } });
   }
 
+  private movieHasSelectedGenres(
+    movie: Movie,
+    selectedGenres: string[],
+  ): boolean {
+    const movieGenres = movie.genre.split(',').map((genre) => genre.trim());
+
+    return selectedGenres.some((selectedGenre) =>
+      movieGenres.includes(selectedGenre),
+    );
+  }
+  async filterByGenres(selectedGenres: string[]): Promise<Movie[]> {
+    const allMovies = await this.movieRepository.find();
+
+    const filteredMovies = allMovies.filter((movie) =>
+      this.movieHasSelectedGenres(movie, selectedGenres),
+    );
+
+    return filteredMovies;
+  }
   async update(id: number, updateMovieDto: UpdateMovieDto) {
-    const movie = await this.movieRepository.findOne({where: {id}});
+    const movie = await this.movieRepository.findOne({ where: { id } });
 
     if (!movie) {
       throw new NotFoundException(`Movie with ID ${id} not found`);
@@ -37,7 +57,7 @@ export class MoviesService {
   }
 
   async remove(id: number): Promise<Movie> {
-    const movie = await this.movieRepository.findOne({where: {id}});
+    const movie = await this.movieRepository.findOne({ where: { id } });
 
     if (!movie) {
       throw new NotFoundException(`Movie with ID #${id} not found`);

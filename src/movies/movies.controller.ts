@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
@@ -16,12 +25,17 @@ export class MoviesController {
   findAll() {
     return this.moviesService.findAll();
   }
+  @Get('filterByGenres')
+  filterByGenres(@Query('genres') genres: string) {
+    const selectedGenres = genres.split(',');
+
+    return this.moviesService.filterByGenres(selectedGenres);
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.moviesService.findOne(+id);
   }
-
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMovieDto: UpdateMovieDto) {
     return this.moviesService.update(+id, updateMovieDto);

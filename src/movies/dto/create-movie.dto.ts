@@ -13,6 +13,7 @@ export class CreateMovieDto {
   year: string;
 
   @IsString()
+  @IsOptional()
   runtime: string;
 
   @IsString()
