@@ -25,9 +25,6 @@ export class AuthController {
 
   @Post('register')
   async create(@Body() createAuthDto: CreateAuthDto) {
-    if (!createAuthDto.role) {
-      createAuthDto.role = 'user';
-    }
     const hashedPassword = await bcrypt.hash(createAuthDto.password, 12);
     createAuthDto.password = hashedPassword;
     const user = this.authService.create(createAuthDto);
@@ -39,14 +36,12 @@ export class AuthController {
   async login(
     @Body('email') email: string,
     @Body('password') password: string,
-    @Body('role') role: string,
     @Res({ passthrough: true }) response: Response,
   ) { 
-    console.log(email);
     const user = await this.authService.findOne(email);
 
     if (!user) {
-      throw new BadRequestException('Invalid Credentials');
+      throw new BadRequestException('Username DOesnt Exist');
     }
 
     if (!(await bcrypt.compare(password, user.password))) {

@@ -23,5 +23,5 @@ export class CreateAuthDto {
 
   @IsString()
   @IsIn(Object.values(UserRole))
-  role: string;
+  role: string = UserRole.USER;
 }
