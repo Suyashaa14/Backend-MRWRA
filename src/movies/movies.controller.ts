@@ -11,10 +11,14 @@ import {
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
+import { RecommendationService } from './recommendation.service';
 
 @Controller('movies')
 export class MoviesController {
-  constructor(private readonly moviesService: MoviesService) {}
+  constructor(
+    private readonly moviesService: MoviesService,
+    private readonly recommendationService: RecommendationService,
+  ) {}
 
   @Post('create')
   create(@Body() createMovieDto: CreateMovieDto) {
@@ -31,6 +35,11 @@ export class MoviesController {
 
     return this.moviesService.filterByGenres(selectedGenres);
   }
+
+  // @Get('recommendations/:movieId')
+  // getRecommendations(@Param('movieId') movieId: string) {
+  //   return this.recommendationService.getRecommendations(movieId);
+  // }
 
   @Get(':id')
   findOne(@Param('id') id: string) {

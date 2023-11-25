@@ -37,7 +37,7 @@ export class AuthController {
     @Body('email') email: string,
     @Body('password') password: string,
     @Res({ passthrough: true }) response: Response,
-  ) { 
+  ) {
     const user = await this.authService.findOne(email);
 
     if (!user) {
@@ -69,6 +69,27 @@ export class AuthController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.authService.findOne(+id);
+  }
+
+  @Post('password-reset')
+  async requestPasswordReset(@Body() body: { email: string }) {
+    const resetToken = await this.authService.sendPasswordResetEmail(
+      body.email,
+    );
+    const resetLink = `http://localhost:3000/auth/reset-password/${resetToken}`;
+    const emailSubject = 'Password Reset';
+    const emailBody = `Click the following link to reset your password: ${resetLink}`;
+    this.authService.sendMail(body.email, emailSubject, emailBody);
+    return { message: 'Password reset email sent successfully' };
+  }
+
+  @Post('reset-password/:token')
+  async resetPassword(
+    @Param('token') token: string,
+    @Body() body: { password: string },
+  ) {
+    await this.authService.resetPassword(token, body.password);
+    return { message: 'Password reset successfully' };
   }
 
   @Patch(':id')

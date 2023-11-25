@@ -19,4 +19,10 @@ export class Auth {
 
   @Column({ default: 'user' })
   role: string;
+
+  @Column({ nullable: true })
+  resetToken: string;
+
+  @Column({ type: 'timestamp', nullable: true })
+  resetTokenExpires: Date;
 }
