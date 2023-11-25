@@ -12,6 +12,7 @@ import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { RecommendationService } from './recommendation.service';
+import { Auth } from 'src/auth/entities/auth.entity';
 
 @Controller('movies')
 export class MoviesController {
@@ -34,6 +35,16 @@ export class MoviesController {
     const selectedGenres = genres.split(',');
 
     return this.moviesService.filterByGenres(selectedGenres);
+  }
+
+  @Post(':id/comments')
+  createComment(@Param('id') movieId: string, @Body() data: { comment: string, userId: Auth }) {
+    return this.moviesService.createComment(+movieId, data);
+  }
+  
+  @Get(':id/comments')
+  getComments(@Param('id') movieId: string){
+    return this.moviesService.getComments(+movieId);
   }
 
   // @Get('recommendations/:movieId')

@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { Auth } from './auth/entities/auth.entity';
 import { MoviesModule } from './movies/movies.module';
 import { Movie } from './movies/entities/movie.entity';
+import { Comment } from './movies/entities/comments.entity';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { Movie } from './movies/entities/movie.entity';
       username: 'root',
       password: 'root',
       database: 'mrwra',
-      entities: [Auth, Movie],
+      entities: [Auth, Movie,Comment],
       synchronize: true,
     }),
     AuthModule,
