@@ -5,6 +5,12 @@ export enum Status {
   DELETED = 'deleted',
 }
 
+export enum SuperAdminApprovalStatus {
+  PENDING = 'pending',
+  APPROVED = 'approved',
+  REJECTED = 'rejected',
+}
+
 @Entity()
 export class Movie {
   @PrimaryGeneratedColumn()
@@ -55,4 +61,11 @@ export class Movie {
     default: Status.ACTIVE,
   })
   status: Status;
+
+  @Column({
+    type: 'enum',
+    enum: SuperAdminApprovalStatus,
+    default: SuperAdminApprovalStatus.PENDING,
+  })
+  super_admin_approved: SuperAdminApprovalStatus;
 }

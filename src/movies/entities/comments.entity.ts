@@ -15,6 +15,9 @@ export class Comment {
   @JoinColumn({ name: 'userId' })
   user: Auth;
 
+  @Column({ type: 'int', nullable: true })
+  rating: number;
+
   @ManyToOne(() => Movie, movie => movie.id)
   @JoinColumn({ name: 'movieId' })
   movie: Movie;

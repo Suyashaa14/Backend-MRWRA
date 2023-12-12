@@ -30,6 +30,12 @@ export class MoviesController {
   findAll() {
     return this.moviesService.findAll();
   }
+
+  @Get('superAdmin')
+  findAllBySuperAdmin() {
+    return this.moviesService.findAllBySuperAdmin();
+  }
+
   @Get('filterByGenres')
   filterByGenres(@Query('genres') genres: string) {
     const selectedGenres = genres.split(',');
@@ -38,7 +44,7 @@ export class MoviesController {
   }
 
   @Post(':id/comments')
-  createComment(@Param('id') movieId: string, @Body() data: { comment: string, userId: Auth }) {
+  createComment(@Param('id') movieId: string, @Body() data: { comment: string; userId: Auth; userRating?: number }) {
     return this.moviesService.createComment(+movieId, data);
   }
   

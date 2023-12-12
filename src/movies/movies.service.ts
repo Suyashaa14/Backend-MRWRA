@@ -3,7 +3,7 @@ import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Movie, Status } from './entities/movie.entity';
+import { Movie, Status, SuperAdminApprovalStatus } from './entities/movie.entity';
 import { Comment } from './entities/comments.entity';
 import { Auth } from 'src/auth/entities/auth.entity';
 
@@ -16,11 +16,26 @@ export class MoviesService {
     private readonly commentRepository: Repository<Comment>,
   ) {}
   create(createMovieDto: CreateMovieDto) {
+    if(createMovieDto.super_admin_approved){
+
+    }
     return this.movieRepository.save(createMovieDto);
   }
 
   findAll() {
-    return this.movieRepository.find();
+    return this.movieRepository.find({
+      where: {
+        super_admin_approved: SuperAdminApprovalStatus.APPROVED,
+      },
+    });
+  }
+
+  findAllBySuperAdmin() {
+    return this.movieRepository.find({
+      where: {
+        super_admin_approved: SuperAdminApprovalStatus.PENDING,
+      },
+    });
   }
 
   findOne(id: any) {
@@ -73,7 +88,7 @@ export class MoviesService {
     return movie;
   }
 
-  async createComment(movieId: number, data: { comment: string, userId: Auth }){
+  async createComment(movieId: number, data: { comment: string, userId: Auth, userRating?: number }){
     const movie = await this.movieRepository.findOne({ where: { id: movieId } });
 
     if (!movie) {
@@ -83,6 +98,7 @@ export class MoviesService {
     newComment.comment = data.comment;
     newComment.movie = movie;
     newComment.user = data.userId;
+    newComment.rating = data.userRating;
     return this.commentRepository.save(newComment);
   }
 

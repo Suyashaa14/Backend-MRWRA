@@ -1,5 +1,5 @@
-import { IsString, IsNumber, IsEnum, IsOptional, IsUrl } from 'class-validator';
-import { Status } from '../entities/movie.entity';
+import { IsString, IsNumber, IsEnum, IsOptional, IsUrl, IsBoolean } from 'class-validator';
+import { Status, SuperAdminApprovalStatus } from '../entities/movie.entity';
 
 export class CreateMovieDto {
   @IsString()
@@ -48,4 +48,8 @@ export class CreateMovieDto {
   @IsEnum(Status)
   @IsOptional()
   status?: Status;
+
+  @IsEnum(SuperAdminApprovalStatus)
+  @IsOptional()
+  super_admin_approved: SuperAdminApprovalStatus;
 }
