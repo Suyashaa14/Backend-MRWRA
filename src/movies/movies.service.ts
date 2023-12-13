@@ -112,6 +112,7 @@ export class MoviesService {
     const transformedComments = comments.map(comment => ({
       id: comment.id,
       comment: comment.comment,
+      userRating: comment.rating,
       user: {
         id: comment.user.id,
         firstName: comment.user.firstName,
