@@ -13,8 +13,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
       transport: {
         host: 'smtp.zoho.com',
         auth: {
-          user: 'sabin.sunar@wolfmatrix.com',
-          pass: 'S@1234ub!n',
+          user: 'suyashaa.vaidya@wolfmatrix.com',
+          pass: 'Suy@sh@@123',
         },
       },
     }),

@@ -3,7 +3,11 @@ import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Movie, Status, SuperAdminApprovalStatus } from './entities/movie.entity';
+import {
+  Movie,
+  Status,
+  SuperAdminApprovalStatus,
+} from './entities/movie.entity';
 import { Comment } from './entities/comments.entity';
 import { Auth } from 'src/auth/entities/auth.entity';
 
@@ -16,8 +20,7 @@ export class MoviesService {
     private readonly commentRepository: Repository<Comment>,
   ) {}
   create(createMovieDto: CreateMovieDto) {
-    if(createMovieDto.super_admin_approved){
-
+    if (createMovieDto.super_admin_approved) {
     }
     return this.movieRepository.save(createMovieDto);
   }
@@ -88,8 +91,13 @@ export class MoviesService {
     return movie;
   }
 
-  async createComment(movieId: number, data: { comment: string, userId: Auth, userRating?: number }){
-    const movie = await this.movieRepository.findOne({ where: { id: movieId } });
+  async createComment(
+    movieId: number,
+    data: { comment: string; userId: Auth; userRating?: number },
+  ) {
+    const movie = await this.movieRepository.findOne({
+      where: { id: movieId },
+    });
 
     if (!movie) {
       throw new Error('Movie not found');
@@ -107,9 +115,9 @@ export class MoviesService {
       where: { movie: { id: movieId } },
       relations: ['user'],
     });
-  
+
     // Transform the result to exclude the 'password' field from the user object
-    const transformedComments = comments.map(comment => ({
+    const transformedComments = comments.map((comment) => ({
       id: comment.id,
       comment: comment.comment,
       userRating: comment.rating,
@@ -123,8 +131,7 @@ export class MoviesService {
         resetTokenExpires: comment.user.resetTokenExpires,
       },
     }));
-  
+
     return transformedComments;
   }
-  
 }

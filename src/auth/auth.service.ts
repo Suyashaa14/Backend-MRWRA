@@ -96,7 +96,7 @@ export class AuthService {
   sendMail(to: string, subject: string, text: string): any {
     const emailSent = this.mailerService.sendMail({
       to: to,
-      from: 'sabin.sunar@wolfmatrix.com',
+      from: 'suyashaa.vaidya@wolfmatrix.com',
       subject: subject,
       text: text,
       html: `<b>${text}</b>`,

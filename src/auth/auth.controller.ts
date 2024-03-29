@@ -76,7 +76,7 @@ export class AuthController {
     const resetToken = await this.authService.sendPasswordResetEmail(
       body.email,
     );
-    const resetLink = `http://localhost:3000/auth/reset-password/${resetToken}`;
+    const resetLink = `http:// /auth/reset-password/${resetToken}`;
     const emailSubject = 'Password Reset';
     const emailBody = `Click the following link to reset your password: ${resetLink}`;
     this.authService.sendMail(body.email, emailSubject, emailBody);

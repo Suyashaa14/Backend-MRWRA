@@ -44,12 +44,15 @@ export class MoviesController {
   }
 
   @Post(':id/comments')
-  createComment(@Param('id') movieId: string, @Body() data: { comment: string; userId: Auth; userRating?: number }) {
+  createComment(
+    @Param('id') movieId: string,
+    @Body() data: { comment: string; userId: Auth; userRating?: number },
+  ) {
     return this.moviesService.createComment(+movieId, data);
   }
-  
+
   @Get(':id/comments')
-  getComments(@Param('id') movieId: string){
+  getComments(@Param('id') movieId: string) {
     return this.moviesService.getComments(+movieId);
   }
 
